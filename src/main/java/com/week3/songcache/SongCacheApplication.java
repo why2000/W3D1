@@ -20,24 +20,21 @@ import java.util.*;
 
   @Override
   public void recordSongPlays(String songId, int numPlays) {
-    Integer buf;
-    if(songId != null){
-      buf = map.get(songId);
-      map.put(songId, buf == null? numPlays: numPlays+buf);
-    }
+    if(songId != null)
+      map.put(songId, map.getOrDefault(songId, 0)+numPlays);
   }
 
   @Override
   public int getPlaysForSong(String songId) {
     if(songId == null)
       return -1;
-    Integer res = map.get(songId);
-    return res == null? -1: res;
+    return map.getOrDefault(songId, -1);
   }
 
   /**
    * By pushing every song in map into an n-size-limited priority queue, we can get the
    * n songs with the highest priority (times being played)
+   * pQ is created and only used in this method,to get thread-safe
    */
   @Override
   public List<String> getTopNSongsPlayed(int n) {
