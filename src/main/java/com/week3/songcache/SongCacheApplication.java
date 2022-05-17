@@ -19,7 +19,7 @@ import java.util.*;
   }
 
   @Override
-  public void recordSongPlays(String songId, int numPlays) {
+  public synchronized void recordSongPlays(String songId, int numPlays) {
     if(songId != null)
       map.put(songId, map.getOrDefault(songId, 0)+numPlays);
   }
