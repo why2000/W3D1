@@ -2,6 +2,7 @@ package com.week3.songcache;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.*;
 
@@ -14,7 +15,7 @@ import java.util.*;
   }
 
   public SongCacheApplication(){
-    this.map = new HashMap<>();
+    this.map = new ConcurrentHashMap<>();
   }
 
   @Override
