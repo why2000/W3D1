@@ -34,19 +34,27 @@ import java.util.*;
     return res == null? -1: res;
   }
 
+  /**
+   * By pushing every song in map into an n-size-limited priority queue, we can get the
+   * n songs with the highest priority (times being played)
+   */
   @Override
   public List<String> getTopNSongsPlayed(int n) {
     List<String> res = new ArrayList<>();
     if(n <= 0)
       return res;
+
     PriorityQueue<String> pQ = new PriorityQueue<>(Comparator.comparingInt(map::get));
+    // limit size of the priority queue by poll whenever exceeds size limit
     for(String s: map.keySet()){
       pQ.add(s);
       if(pQ.size() > n)
         pQ.poll();
     }
+    // poll the pQ one by one, which gives the n-highest songs in increasing order
     while(pQ.size() > 0)
       res.add(pQ.poll());
+    // reverse to get the expected result
     Collections.reverse(res);
     return res;
   }
